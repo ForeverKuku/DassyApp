@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { View, Text, Button,StyleSheet,  TouchableOpacity, Dimensions, Pressable } from 'react-native';
+import { View, Text, Button,StyleSheet,  TouchableOpacity, Dimensions,ScrollView, Pressable } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import { Icon } from 'react-native-elements';
@@ -84,23 +84,27 @@ const AccueilScreen = ({navigation}) => {
         </View>
       </View>
 
+      <ScrollView contentContainerStyle={styles.scrollContent}>
       <Text style={styles.sectionTitleheader}>Activités du compte</Text>
       <View style={styles.chartContainer}>
         <View style={styles.subHeaderContainer}>
         <View style={styles.pickerWrapper}>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedValue(value)}
-            items={[
-              { label: 'Semaine dernière', value: 'Semaine dernière' },
-              { label: 'Ce mois', value: 'Ce mois' },
-              { label: 'Cette année', value: 'Cette année' },
-            ]}
-            style={pickerSelectStyles}
-            value={selectedValue}
-            Icon={() => {
-                return <Ionicons name="chevron-down" size={24} color="gray" />;
-            }}
-          />
+              <RNPickerSelect
+                onValueChange={(value) => setSelectedValue(value)}
+                items={[
+                  { label: 'Semaine dernière', value: 'Semaine dernière' },
+                  { label: 'Ce mois', value: 'Ce mois' },
+                  { label: 'Cette année', value: 'Cette année' },
+                ]}
+                style={pickerSelectStyles}
+                value={selectedValue}
+                useNativeAndroidPickerStyle={false}
+                Icon={() => <Ionicons name="chevron-down" size={24} color="gray" />}
+                modalProps={{
+                  animationType: 'slide',
+                  transparent: true,
+                }}
+              />
         </View>
         </View>
         <View style={styles.percentageContainer}>
@@ -133,17 +137,7 @@ const AccueilScreen = ({navigation}) => {
             </View>
           </View>
         </View>
-       
-
-      <View style={styles.pushNotificationContainer}>
-        <Text>Your expo push token: {expoPushToken}</Text>
-        <View style={styles.notificationDetails}>
-          <Text>Title: {notification && notification.request.content.title}</Text>
-          <Text>Body: {notification && notification.request.content.body}</Text>
-          <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-        </View>
-        <Button title="Press to Send Notification" onPress={async () => {  await sendPushNotification(expoPushToken); }} />
-      </View>
+      </ScrollView>
       </View>
   );
 };

@@ -1,17 +1,16 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { renderItem as RenderItemComponent } from '../utils/RenderItem';
 import { investments } from '../utils/Investments';
 
 
 
+const { width, height } = Dimensions.get('window'); 
 
 const MesInvestmentScreen = ({ navigation }) => {
- 
-  
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('InvestissementScreen', { investment: item })} >
+    <TouchableOpacity onPress={() => navigation.navigate('InvestissementScreen', { investment: item })}>
       <RenderItemComponent item={item} />
     </TouchableOpacity>
   );
@@ -19,7 +18,7 @@ const MesInvestmentScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Mes investissements</Text>
@@ -28,10 +27,12 @@ const MesInvestmentScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.searchContainer}>
-        <Icon name="search" size={20} color="#ccc" style={styles.searchIcon} />
-        <TextInput style={styles.searchInput} placeholder="Rechercher" />
-      </View>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardAvoidingView}>
+        <View style={styles.searchContainer}>
+          <Icon name="search" size={20} color="#ccc" style={styles.searchIcon} />
+          <TextInput style={styles.searchInput} placeholder="Rechercher" />
+        </View>
+      </KeyboardAvoidingView>
 
       <FlatList
         data={investments}
@@ -52,41 +53,46 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: width * 0.04, 
+    paddingVertical: height * 0.02,  
     backgroundColor: '#f7f7f7',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: width * 0.045, 
     fontWeight: 'bold',
   },
   plusButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: width * 0.1, 
+    height: width * 0.1, 
+    borderRadius: (width * 0.1) / 2,
     backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  keyboardAvoidingView: {
+    paddingHorizontal: width * 0.04, 
+    marginVertical: height * 0.01, 
+  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 16,
-    padding: 10,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 8,
+    paddingHorizontal: width * 0.02, 
   },
   searchIcon: {
-    marginRight: 8,
+    marginRight: width * 0.02, 
   },
   searchInput: {
     flex: 1,
+    paddingVertical: height * 0.015, 
   },
   listContainer: {
-    paddingHorizontal: 16,
+    paddingHorizontal: width * 0.04, 
+    paddingBottom: height * 0.02, 
   },
 });
 

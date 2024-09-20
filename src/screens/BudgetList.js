@@ -4,14 +4,13 @@ import { Ionicons } from '@expo/vector-icons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Icon } from 'react-native-elements';
 import { Budgetinvestments } from '../utils/Budgetinvestment';
-import {BudgetrenderItem} from '../utils/BudgetrenderItem';
+import { BudgetrenderItem } from '../utils/BudgetrenderItem';
 import LineChart from '../components/LineChart';
 import { data } from '../utils/ChartData';
 
+const { width, height } = Dimensions.get('window'); 
 
-const screenWidth = Dimensions.get('window').width;
-
-const BudgetList = ({navigation}) => {
+const BudgetList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,21 +37,22 @@ const BudgetList = ({navigation}) => {
         </View>
 
         {/* Performance Chart */}
-        <LineChart data={data} width={300} height={200} />
-         <View style={styles.amountContainer}>
-              <Text style={styles.amount}>CFA 350.000</Text>
-            </View>
+        <LineChart data={data} width={width * 0.85} height={height * 0.3} />
+        <View style={styles.amountContainer}>
+          <Text style={styles.amount}>CFA 350.000</Text>
+        </View>
       </View>
 
-       {/* Category Section */}
-       <View style={styles.categoryHeader}>
+      {/* Category Section */}
+      <View style={styles.categoryHeader}>
         <Text style={styles.categoryTitle}>Catégories</Text>
         <MaterialCommunityIcons name="chevron-up" size={24} color="#000" style={styles.chevronIcon} />
       </View>
+
       <FlatList
         data={Budgetinvestments}
         renderItem={BudgetrenderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}
       />
     </View>
@@ -62,107 +62,96 @@ const BudgetList = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 17,
+    padding: width * 0.04, 
     backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'white',
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingVertical: height * 0.02,
+    paddingHorizontal: width * 0.03, 
     borderRadius: 10,
-    marginBottom: 26,
-    marginTop:20,
-   
+    backgroundColor: '#fff',
+    elevation: 2,
+    marginBottom: height * 0.03, 
   },
   headerTitle: {
-    fontSize: 22,
-    fontWeight: 'normal',
+    fontSize: width * 0.055,
     color: '#333',
     textAlign: 'center',
     flex: 1,
   },
   plusButton: {
-    backgroundColor: '#1D891D', 
+    backgroundColor: '#1D891D',
     borderRadius: 50,
-    padding: 5,
+    padding: width * 0.03, 
   },
   summaryChartCard: {
     backgroundColor: 'white',
     borderRadius: 10,
-    borderColor: '#F5F5F5', 
-    borderWidth: 1, 
-    padding: 15,
-    marginBottom: 20,
+    borderColor: '#F5F5F5',
+    borderWidth: 1,
+    padding: width * 0.04, 
+    marginBottom: height * 0.03, 
     elevation: 2,
   },
   summaryContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: height * 0.02, 
   },
   card: {
     backgroundColor: 'white',
-    padding: 15,
-    borderRadius: 20,
-    borderColor:'#F5F5F5',
+    padding: width * 0.02, 
+    borderRadius: 15, 
+    borderColor: '#F5F5F5',
     borderWidth: 1,
-    width: '48%',
+    width: '45%', 
     alignItems: 'center',
     elevation: 2,
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: width * 0.035, 
     color: '#666',
-    marginBottom: 5,
+    marginBottom: height * 0.008,
   },
   cardAmountPositive: {
-    fontSize: 18,
+    fontSize: width * 0.04, 
     fontWeight: 'bold',
     color: '#1D891D',
   },
   cardAmountNegative: {
-    fontSize: 18,
+    fontSize: width * 0.04, 
     fontWeight: 'bold',
     color: 'red',
   },
-  chart: {
-    marginVertical: 10,
-    borderRadius: 10,
-  },
   amountContainer: {
     position: 'absolute',
-    bottom: 100,
-    left: 120,
-    right: 0,
-    transform: [
-      { translateX: -50 },
-      { translateY: -10 }
-    ],
+    bottom: height * 0.15, 
+    left: width * 0.25,
     alignItems: 'center',
   },
   amount: {
-    fontSize: 10,
+    fontSize: width * 0.035, 
     fontWeight: 'normal',
-    marginBottom:55,
+    marginBottom: height * 0.05, 
   },
   categoryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
-    marginBottom: 32,
+    justifyContent: 'space-between',
+    marginBottom: height * 0.03, 
   },
   categoryTitle: {
-    fontSize: 18,
+    fontSize: width * 0.05, 
     fontWeight: 'normal',
   },
   chevronIcon: {
-    marginRight: 10, 
+    marginRight: width * 0.02, 
   },
   listContainer: {
-    paddingBottom: 20,
+    paddingBottom: height * 0.02, 
   },
 });
 

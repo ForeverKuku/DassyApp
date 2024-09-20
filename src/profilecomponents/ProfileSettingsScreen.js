@@ -1,14 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Switch,
+  Dimensions, ScrollView
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-
+const { width, height } = Dimensions.get('window');
 
 const ProfileSettingsScreen = ({ navigation }) => {
   const [notificationEnabled, setNotificationEnabled] = React.useState(false);
 
-  const toggleSwitch = () => setNotificationEnabled(previousState => !previousState);
+  const toggleSwitch = () => setNotificationEnabled((previousState) => !previousState);
 
   return (
     <View style={styles.container}>
@@ -21,10 +29,12 @@ const ProfileSettingsScreen = ({ navigation }) => {
         </View>
       </View>
 
-     
       <View style={styles.card}>
         <View style={styles.profileHeader}>
-          <Image source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }} style={styles.profileImage} />
+          <Image
+            source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }}
+            style={styles.profileImage}
+          />
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>Scarlett Davis</Text>
             <Text style={styles.profileEmail}>Scarlettdavis@gmail.com</Text>
@@ -33,9 +43,13 @@ const ProfileSettingsScreen = ({ navigation }) => {
       </View>
 
       {/* General Settings Section */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>General</Text>
-        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('EditProfileScreen')}>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => navigation.navigate('EditProfileScreen')}
+        >
           <View style={styles.optionLeft}>
             <Ionicons name="person" size={22} color="#007bff" style={styles.optionIcon} />
             <Text style={styles.optionText}>Edit Profile</Text>
@@ -73,7 +87,12 @@ const ProfileSettingsScreen = ({ navigation }) => {
         <Text style={styles.sectionTitle}>Preferences</Text>
         <View style={styles.option}>
           <View style={styles.optionLeft}>
-            <Ionicons name="notifications" size={22} color="#007bff" style={styles.optionIcon} />
+            <Ionicons
+              name="notifications"
+              size={22}
+              color="#007bff"
+              style={styles.optionIcon}
+            />
             <Text style={styles.optionText}>Notification</Text>
           </View>
           <Switch
@@ -86,7 +105,12 @@ const ProfileSettingsScreen = ({ navigation }) => {
 
         <TouchableOpacity style={styles.option}>
           <View style={styles.optionLeft}>
-            <MaterialCommunityIcons name="progress-alert" size={22} color="#007bff" style={styles.optionIcon} />
+            <MaterialCommunityIcons
+              name="progress-alert"
+              size={22}
+              color="#007bff"
+              style={styles.optionIcon}
+            />
             <Text style={styles.optionText}>FAQ</Text>
           </View>
           <Ionicons name="chevron-forward" size={22} color="#007bff" />
@@ -99,6 +123,7 @@ const ProfileSettingsScreen = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </View>
   );
 };
@@ -107,7 +132,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    paddingTop: 10,
+    padding: width * 0.05,
   },
   card: {
     marginTop: 20,

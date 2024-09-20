@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import pickerSelectStyles from '../utils/pickerSelectStyles';
 import LineChart from '../components/LineChart';
 import { data } from '../utils/ChartData';
 
-
-const screenWidth = Dimensions.get('window').width;
+const { width, height } = Dimensions.get('window');
 
 const InvestissementScreen = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState("Semaine dernière");
@@ -16,19 +16,16 @@ const InvestissementScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('MesInvestmentScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('MesInvestmentScreen')}>
             <Icon name="arrow-back" color="#fff" size={24} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Investissement</Text>
           <Icon name="ellipsis-vertical" color="#fff" size={24} />
         </View>
-        
-        {/* Card with Investment Summary */}
         <View style={styles.card}>
           <View style={styles.investmentSummary}>
             <View style={styles.investmentRow}>
-              <View style={styles.iconContainer}>
-              </View>
+              <View style={styles.iconContainer} />
               <View>
                 <Text style={styles.investmentCompany}>Ecobank Inc.</Text>
                 <Text style={styles.investmentType}>Compte Titres</Text>
@@ -42,60 +39,67 @@ const InvestissementScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Performance Chart */}
-      <Text style={styles.sectionTitle}>Performance</Text>
-      <View style={styles.card2}>
-        <View style={styles.chartContainer}>
-          <View style={styles.pickerWrapper}>
-            <RNPickerSelect
-              onValueChange={(value) => setSelectedValue(value)}
-              items={[
-                { label: 'Semaine dernière', value: 'Semaine dernière' },
-                { label: 'Ce mois', value: 'Ce mois' },
-                { label: 'Cette année', value: 'Cette année' },
-              ]}
-              style={pickerSelectStyles}
-              value={selectedValue}
-              Icon={() => <Icon name="chevron-down" size={24} color="gray" />}
-            />
-          </View>
-          <View style={styles.percentageContainer}>
-            <Text style={styles.percentage}>+32.3 (9%)</Text>
-          </View>
-          <View style={styles.chartWrapper}>
-          <LineChart data={data} width={300} height={200} style={styles.chart} />
-            <View style={styles.amountContainer}>
-              <Text style={styles.amount}>CFA 350.000</Text>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Text style={styles.sectionTitle}>Performance</Text>
+        <View style={styles.card2}>
+          <View style={styles.chartContainer}>
+            <View style={styles.pickerWrapper}>
+              <RNPickerSelect
+                onValueChange={(value) => setSelectedValue(value)}
+                items={[
+                  { label: 'Semaine dernière', value: 'Semaine dernière' },
+                  { label: 'Ce mois', value: 'Ce mois' },
+                  { label: 'Cette année', value: 'Cette année' },
+                ]}
+                style={pickerSelectStyles}
+                value={selectedValue}
+                useNativeAndroidPickerStyle={false}
+                Icon={() => <Ionicons name="chevron-down" size={24} color="gray" />}
+                modalProps={{
+                  animationType: 'slide',
+                  transparent: true,
+                }}
+              />
+            </View>
+            <View style={styles.percentageContainer}>
+              <Text style={styles.percentage}>+32.3 (9%)</Text>
+            </View>
+            <View style={styles.chartWrapper}>
+              <LineChart data={data} width={width * 0.9} height={height * 0.25} style={styles.chart} />
+              <View style={styles.amountContainer}>
+                <Text style={styles.amount}>CFA 350.000</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
 
-      {/* Price Details */}
-      <View style={styles.priceCard}>
-        <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>Prix d'achat</Text>
-          <View>
-            <Text style={styles.priceValue}>CFA 17.00</Text>
-            <Text style={styles.priceChange}>+1.34 (8.43%)</Text>
+        
+        <View style={{ marginBottom: 20 }} />
+        <View style={styles.priceCard}>
+          <View style={styles.priceRow}>
+            <Text style={styles.priceLabel}>Prix d'achat</Text>
+            <View>
+              <Text style={styles.priceValue}>CFA 17.00</Text>
+              <Text style={styles.priceChange}>+1.34 (8.43%)</Text>
+            </View>
           </View>
         </View>
-      </View>
-      
-      <View style={styles.priceCard}>
-        <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>Prix actuel</Text>
-          <View>
-            <Text style={styles.priceValue}>CFA 10.00</Text>
-            <Text style={styles.priceChangeNegative}>-7.00 (-12.89%)</Text>
+
+        <View style={styles.priceCard}>
+          <View style={styles.priceRow}>
+            <Text style={styles.priceLabel}>Prix actuel</Text>
+            <View>
+              <Text style={styles.priceValue}>CFA 10.00</Text>
+              <Text style={styles.priceChangeNegative}>-7.00 (-12.89%)</Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      {/* Sell Button */}
-      <TouchableOpacity style={styles.sellButton}>
-        <Text style={styles.sellButtonText}>J'AI VENDU CET ACTIF</Text>
-      </TouchableOpacity>
+        {/* Sell Button */}
+        <TouchableOpacity style={styles.sellButton}>
+          <Text style={styles.sellButtonText}>J'AI VENDU CET ACTIF</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
@@ -105,10 +109,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  scrollContent: {
+    paddingBottom: 20,
+  },
   headerContainer: {
     backgroundColor: '#1D891D',
     paddingBottom: 20,
-    borderRadius: 35
+    borderRadius: 35,
   },
   header: {
     flexDirection: 'row',
@@ -188,11 +195,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   chartContainer: {
-    marginBottom: 20,
+    marginBottom: 20, 
   },
   pickerWrapper: {
-    marginBottom: 10,
-    width: 200,
+    width: 200, 
   },
   percentageContainer: {
     marginBottom: 10,
@@ -212,50 +218,46 @@ const styles = StyleSheet.create({
   amountContainer: {
     position: 'absolute',
     bottom: 100,
-    left: 120,
-    right: 0,
-    transform: [
-      { translateX: -50 },
-      { translateY: -10 }
-    ],
+    left: '50%',
+    transform: [{ translateX: -50 }, { translateY: -10 }],
     alignItems: 'center',
   },
   amount: {
     fontSize: 10,
     fontWeight: 'normal',
-    marginBottom:55,
+    marginBottom: 55,
   },
   priceCard: {
     backgroundColor: '#f9f9f9',
-    borderRadius: 8, 
-    elevation: 2, 
+    borderRadius: 8,
+    elevation: 2,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 }, 
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 3, 
-    marginHorizontal: 15, 
-    padding: 10, 
+    shadowRadius: 3,
+    marginHorizontal: 15,
+    padding: 10,
     marginBottom: 8,
   },
   priceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10, 
+    marginBottom: 10,
   },
   priceLabel: {
-    fontSize: 12, 
+    fontSize: 12,
   },
   priceValue: {
-    fontSize: 14, 
+    fontSize: 14,
     fontWeight: 'bold',
   },
   priceChange: {
     color: 'green',
-    fontSize: 10, 
+    fontSize: 10,
   },
   priceChangeNegative: {
     color: 'red',
-    fontSize: 10, 
+    fontSize: 10,
   },
   sellButton: {
     backgroundColor: '#1D891D',
