@@ -1,0 +1,68 @@
+
+export const investments = [
+    {
+      id: '1',
+      title: 'Ecobank Inc.',
+      amount: 'CFA 432.210',
+      category: 'Compte Titres',
+      change: '+2.53 (9%)',
+      changeColor: 'green',
+    },
+    {
+      id: '2',
+      title: 'Palm Côte d\'Ivoire',
+      amount: 'CFA 245.890',
+      category: 'Compte Titres',
+      change: '-0.32 (3%)',
+      changeColor: 'red',
+    },
+    {
+      id: '3',
+      title: 'Flotte Yango - 5 voitures',
+      amount: 'CFA 25.000.000',
+      category: 'Affaires Secondaires',
+      change: '+2.49 (8%)',
+      changeColor: 'green',
+    },
+    {
+      id: '4',
+      title: 'Immeuble II Plateau',
+      amount: 'CFA 50.000.000',
+      category: 'Immobilier',
+      change: '-21.3 (12%)',
+      changeColor: 'red',
+    },
+    {
+      id: '5',
+      title: 'Résidence Meublé - BKE',
+      amount: 'CFA 15.000.000',
+      category: 'Immobilier',
+      change: '+3.21 (78%)',
+      changeColor: 'green',
+    },
+    {
+      id: '6',
+      title: 'Compte en banque SIB',
+      amount: 'CFA 5.000.000',
+      category: 'Epargne',
+      change: '-12.4 (9%)',
+      changeColor: 'red',
+    },
+    {
+        id: '7',
+        title: 'Autres Actifs',
+        amount: 'CFA 10.000.000',
+        category: 'CYBIFCP/SICAVLL',
+        change: '+3.54 (4%)',
+        changeColor: 'green',
+      },
+      {
+        id: '8',
+        title: 'Assurance Maladie',
+        amount: 'CFA 1.5000.000',
+        category: 'Assurance',
+        change: '+34.3 (9%)',
+        changeColor: 'green',
+      },
+  ];
+  
