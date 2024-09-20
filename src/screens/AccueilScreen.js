@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { View, Text, Button,StyleSheet,  TouchableOpacity, Dimensions,ScrollView, Pressable } from 'react-native';
+import { View, Text,StyleSheet,  TouchableOpacity, Dimensions,ScrollView, Pressable } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import { Icon } from 'react-native-elements';
@@ -37,6 +37,7 @@ const AccueilScreen = ({navigation}) => {
   const handlePress = () => {
     navigation.navigate('ProfileSettingsScreen'); 
   };
+
 
 
   return (
@@ -254,7 +255,6 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 19,
     color: '#333',
-    fontFamily: 'Arial',
     fontWeight: 'bold',
     textAlign:'right'
   },
